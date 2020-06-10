@@ -1,0 +1,54 @@
+watch_router:
+  addr: 'http://192.168.1.1'
+  internet_ping_address: 'https://eth.nanopool.org'
+  restart_router_str: 'ssh root@192.168.1.1 reboot'
+  scheduled_restart_at:
+    - '00:00'
+  ping_frequency: '30s'
+  restart_on_fails_after_last_success: '5'
+
+watch_rigs:
+  - name: 'maybe7_580_WIFI'
+    addr: 'http://192.168.1.19'
+    #name: 'maybe7_580'
+    #addr: 'http://192.168.1.22'
+    watch_claymore: true
+    claymore_port: 3333
+    min_claymore_speed: 165
+    pi:
+      #driver: 'orange_pi_one'
+      driver: 'stub'
+      restart_gpio_pin: 'PG7'
+      shutdown_gpio_pin: 'PG6'
+      power_on_led_pin: 'PD14'
+    ping_frequency: '40s'
+    restart_on_fails_after_last_success: '4'
+  - name: '8x_580'
+    addr: 'http://192.168.1.21'
+    watch_claymore: true
+    claymore_port: 3333
+    min_claymore_speed: 225
+    pi:
+      driver: 'stub'
+      #driver: 'orange_pi_one'
+      restart_gpio_pin: 'PG9'
+      shutdown_gpio_pin: 'PG8'
+      power_on_led_pin: 'PC7'
+    ping_frequency: '40s'
+    restart_on_fails_after_last_success: '4'
+
+notification:
+  email: 'XXX@gmail.com'
+  from_email: 'YYY@gmail.com'
+  from_email_pass: 'PASS'
+  smtp_server: 'smtp.gmail.com:587'
+  interval: 15m
+
+log:
+  file: 'watchdog_log_file.txt'
+
+blinker:
+  #driver: 'orange_pi_one'
+  driver: 'stub'
+  blink_pin: 'PC3'
+  interval: 1
